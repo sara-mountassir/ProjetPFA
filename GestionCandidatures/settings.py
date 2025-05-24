@@ -89,15 +89,8 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 # Database Configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sarakojima$gestion',  # Format: username$dbname
-        'USER': 'sarakojima',
-        'PASSWORD': 'sarakojima99',  # From PythonAnywhere DB tab
-        'HOST': 'sarakojima.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
