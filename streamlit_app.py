@@ -15,35 +15,18 @@ with col2:
     st.title("Gestion des Candidatures")
     
     # Welcome message
-    st.markdown("""
-    <div style='text-align: center; margin: 20px 0;'>
-        <p style='font-size: 1.2em; color: #666;'>Bienvenue dans votre espace de gestion des candidatures</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.write("Bienvenue dans votre espace de gestion des candidatures")
     
-    # Login button with styling
-    st.markdown("""
-    <div style='text-align: center; padding: 20px;'>
-        <a href='https://projetpfa-jzgjbivvfqdgn7p9jawpnu.streamlit.app/login/' target='_self' style='text-decoration: none;'>
-            <button style='
-                background-color: #FF4B4B;
-                color: white;
-                padding: 15px 32px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 16px;
-                transition: all 0.3s ease;
-                width: 100%;
-                margin: 10px 0;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);'
-                onmouseover='this.style.backgroundColor="#FF3333"'
-                onmouseout='this.style.backgroundColor="#FF4B4B"'>
-                Se connecter 🔓
-            </button>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+    # Add some space
+    st.write("")
+    
+    # Login link - using your Django app URL
+    st.markdown(
+        "<div style='text-align: center;'><h2>"
+        "<a href='https://projetpfa-jzgjbivvfqdgn7p9jawpnu.streamlit.app/login/' style='text-decoration: none; color: #FF4B4B;'>"
+        "Se connecter 🔓</a></h2></div>",
+        unsafe_allow_html=True
+    )
     
     # Footer
     st.markdown("""
@@ -51,4 +34,3 @@ with col2:
         <p style='color: #888; font-size: 0.8em;'>© 2025 Gestion des Candidatures. Tous droits réservés.</p>
     </div>
     """, unsafe_allow_html=True)
-
