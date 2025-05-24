@@ -62,12 +62,18 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=not DEBUG
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gestion_candidatures',  # Database name you created
+        'USER': 'root',                  # Default XAMPP username
+        'PASSWORD': '',                  # Default XAMPP password (empty)
+        'HOST': 'localhost',             # XAMPP runs on localhost
+        'PORT': '3306',                  # Default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        }
+    }
 }
 
 # Password validation
