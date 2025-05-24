@@ -2,7 +2,8 @@ import os
 import dj_database_url
 from pathlib import Path
 from datetime import timedelta
-
+import pymysql
+pymysql.install_as_MySQLdb()
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -64,11 +65,11 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gestion_candidatures',  # Database name you created
-        'USER': 'root',                  # Default XAMPP username
-        'PASSWORD': '',                  # Default XAMPP password (empty)
-        'HOST': 'localhost',             # XAMPP runs on localhost
-        'PORT': '3306',                  # Default MySQL port
+        'NAME': 'gestion_candidatures',  # Your XAMPP database name
+        'USER': 'root',
+        'PASSWORD': '',                  # Default XAMPP password is empty
+        'HOST': 'localhost',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
