@@ -134,8 +134,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic output
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # your existing static folder inside the project
+    BASE_DIR / 'static',
 ]
+
 
 
 
