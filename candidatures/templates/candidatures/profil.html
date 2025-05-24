@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Candidat - Gestion des Candidatures</title>
+ <style>
+   :root {
+  --clr-primary: #3a0ca3;
+  --clr-primary-hover: #240046;
+  --clr-secondary: #7209b7;
+  --clr-accent: #f72585;
+  --clr-success: #4cc9f0;
+  --clr-warning: #fca311;
+  --clr-danger: #ef233c;
+
+  --clr-bg: #f8f9fa;
+  --clr-card: #ffffff;
+  --clr-text: #212529;
+  --clr-muted: #6c757d;
+  --clr-border: #dee2e6;
+
+  --radius: 12px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+}
+
+header {
+  background-color: var(--clr-card);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--clr-muted);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--clr-primary);
+  background: rgba(67, 97, 238, 0.1);
+}
+
+h1 {
+  font-size: 2.3rem;
+  text-align: center;
+  color: var(--clr-primary);
+  margin: 2rem auto;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.profile-card {
+  background: var(--clr-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-picture {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--clr-primary);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+}
+
+.profile-info h2 {
+  font-size: 1.8rem;
+  color: var(--clr-text);
+  margin-bottom: 0.25rem;
+}
+
+.profile-info p {
+  color: var(--clr-muted);
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.profile-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--clr-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--clr-primary-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--clr-success);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--clr-primary);
+}
+
+.candidatures-card {
+  background: var(--clr-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+}
+
+.candidatures-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--clr-text);
+  text-align: center;
+}
+
+.candidature-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.candidature-table th,
+.candidature-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--clr-border);
+  text-align: left;
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status.accepted {
+  background-color: rgba(0, 200, 83, 0.1);
+  color: #00c853;
+}
+
+.status.in-progress {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.status.rejected {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
+.btn-details {
+  padding: 0.5rem 1rem;
+  background: var(--clr-primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-details:hover {
+  background: var(--clr-primary-hover);
+  transform: scale(1.02);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-container {
+  background: var(--clr-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--clr-border);
+  margin-bottom: 1rem;
+}
+
+.modal-close {
+  font-size: 1.5rem;
+  color: var(--clr-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--clr-danger);
+}
+
+.modal-section-title {
+  color: var(--clr-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .candidature-table {
+    overflow-x: auto;
+    display: block;
+  }
+}
+
+
+/* Le formulaire est caché par défaut */
+#editForm {
+  display: none;
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', sans-serif;
+  color: #334155;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Formulaire visible */
+#editForm.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Titres des labels */
+#editForm label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #64748b;
+}
+
+/* Champs de saisie */
+#editForm input[type="text"],
+#editForm input[type="email"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #334155;
+  box-sizing: border-box;
+}
+
+#editForm input[type="text"]:focus,
+#editForm input[type="email"]:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 8px rgba(67, 97, 238, 0.4);
+  outline: none;
+}
+
+/* Bouton Enregistrer */
+#editForm button.btn-primary {
+   background-color: var(--clr-primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.85rem 1.8rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 12px rgba(67, 97, 238, 0.35);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#editForm button.btn-primary:hover {
+  background-color: #3a56d4;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(58, 86, 212, 0.5);
+}
+
+/* Responsive - form largeur max 100% sur petits écrans */
+@media (max-width: 480px) {
+  #editForm {
+    padding: 1.5rem 1.5rem;
+    margin: 1rem auto;
+  }
+
+  #editForm button.btn-primary {
+    width: 100%;
+  }
+}
+
+
+ 
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="nav-links">
+      <a href="{% url 'welcome' %}">Accueil</a>
+      <a href="#" class="active">Profil</a>
+      <a href="{% url 'login' %}">Déconnexion</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    
+    <h1>Profil Candidat</h1>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Carte de profil -->
+    <div class="profile-card">
+      <img src="https://th.bing.com/th/id/R.d08cdfc681067dffa5ae516781c3e0e4?rik=iyXXqzBB%2f4Kerw&pid=ImgRaw&r=0" alt="Photo de Profil" class="profile-picture">
+      <div class="profile-info">
+        <h2>{{ profile.nom }} {{ profile.prenom }}</h2>
+        <p>{{ profile.user.email }}</p>
+        <p>Téléphone: {{ profile.numero_telephone }}</p>
+      </div>
+     
+
+    <div id="editForm">
+        <form method="POST" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+            <label>Nom:</label><br>
+            <input type="text" name="nom" value="{{ profile.nom }}"><br>
+
+            <label>Prénom:</label><br>
+            <input type="text" name="prenom" value="{{ profile.prenom }}"><br>
+
+            <label>Numéro de téléphone:</label><br>
+            <input type="text" name="numero_telephone" value="{{ profile.numero_telephone }}"><br>
+
+            <label>Email:</label><br>
+            <input type="email" name="email" value="{{ profile.user.email }}"><br>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </div>
+ <div class="profile-actions">
+         <button onclick="toggleForm()" class="btn btn-primary">Modifier Profil</button>
+        {% with last_candidature=profile.candidatures.last %}
+        {% if last_candidature and last_candidature.cv %}
+          <a href="{{ last_candidature.cv.url }}" target="_blank" class="btn btn-secondary">Télécharger CV</a>
+        {% else %}
+          <button class="btn btn-secondary" disabled>CV non disponible</button>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+
+    <!-- Tableau des candidatures -->
+    <div class="candidatures-card">
+      <h2 class="candidatures-title">Mes Candidatures</h2>
+      <table class="candidature-table">
+        <thead>
+          <tr>
+            <th>Poste</th>
+            <th>Entreprise</th>
+            <th>Statut</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for candidature in candidatures %}
+            <tr>
+              <td>{{ candidature.offre.titre }}</td>
+              <td>{{ candidature.offre.entreprise }}</td>
+              <td>
+                <span class="status {% if candidature.statut_candidature == 'accepté' %}accepted{% elif candidature.statut_candidature == 'en attente' %}in-progress{% else %}rejected{% endif %}">
+                  {{ candidature.get_statut_candidature_display }}
+                </span>
+              </td>
+              <td>{{ candidature.date_envoi|date:"d/m/Y" }}</td>
+              <td>
+                <button class="btn-details" onclick="showDetails({{ candidature.id }})">
+                  Voir Détails
+                </button>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 2rem; color: var(--clr-text-light);">
+                Aucune candidature trouvée.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal pour les détails -->
+  <div id="modal-detail" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Détails de la Candidature</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4 class="modal-section-title">Informations Personnelles</h4>
+          <p><strong>Nom :</strong> <span id="modal-nom"></span></p>
+          <p><strong>Prénom :</strong> <span id="modal-prenom"></span></p>
+          <p><strong>Email :</strong> <span id="modal-email"></span></p>
+          <p><strong>Téléphone :</strong> <span id="modal-numero"></span></p>
+        </div>
+        
+        <div class="modal-section">
+          <h4 class="modal-section-title">Lettre de Motivation</h4>
+          <p id="modal-lettre" style="white-space: pre-line; line-height: 1.6;"></p>
+        </div>
+        
+        <div class="modal-section" id="cv-container">
+          <h4 class="modal-section-title">CV du Candidat</h4>
+          <iframe id="cv-frame" class="cv-preview" src=""></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Store candidature data as JSON in a script tag -->
+  {% comment %}
+  We'll create a proper data structure in Python and serialize it to JSON
+  This avoids JavaScript syntax errors from template rendering
+  {% endcomment %}
+  
+  <script>
+    // Initialize empty object for candidature data
+    const candidatureData = {};
+    
+    {% for c in candidatures %}
+    // Add each candidature safely
+    candidatureData["{{ c.id }}"] = {
+      "nom": "{{ c.candidat.nom|escapejs }}",
+      "prenom": "{{ c.candidat.prenom|escapejs }}",
+      "email": "{{ c.candidat.user.email|escapejs }}",
+      "numero": "{{ c.candidat.numero_telephone|escapejs }}",
+      "lettre": "{{ c.lettre_motivation|escapejs }}",
+      "cv": "{% if c.cv %}{{ c.cv.url|escapejs }}{% endif %}"
+    };
+    {% endfor %}
+
+    function showDetails(id) {
+      const data = candidatureData[id];
+      if (!data) {
+        console.error("Aucune donnée trouvée pour l'ID:", id);
+        return;
+      }
+
+      document.getElementById("modal-nom").textContent = data.nom;
+      document.getElementById("modal-prenom").textContent = data.prenom;
+      document.getElementById("modal-email").textContent = data.email;
+      document.getElementById("modal-numero").textContent = data.numero;
+      document.getElementById("modal-lettre").textContent = data.lettre;
+
+      const cvContainer = document.getElementById("cv-container");
+      const cvFrame = document.getElementById("cv-frame");
+      
+      if (data.cv) {
+        cvFrame.src = data.cv;
+        cvContainer.style.display = "block";
+      } else {
+        cvContainer.style.display = "none";
+      }
+
+      document.getElementById("modal-detail").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("modal-detail").classList.remove("active");
+      document.body.style.overflow = "auto";
+    }
+        function toggleForm() {
+            var form = document.getElementById("editForm");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+    // Fermer le modal en cliquant en dehors
+    document.getElementById("modal-detail").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+
+<script>
+  function toggleForm() {
+    const form = document.getElementById('editForm');
+    if (form.style.display === 'block') {
+      form.style.display = 'none';
+    } else {
+      form.style.display = 'block';
+      // Optionnel : scroller jusqu'au formulaire pour l'user friendly
+      form.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+
+
+</body>
+</html>
