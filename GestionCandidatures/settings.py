@@ -87,6 +87,7 @@ DATABASES = {
     }
 }
 
+
 # Security Settings
 DEBUG = False
 ALLOWED_HOSTS = ['sarakojima.pythonanywhere.com', 'localhost']
