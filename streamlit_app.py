@@ -23,7 +23,7 @@ with col2:
     # Login link - using your Django app URL
     st.markdown(
         "<div style='text-align: center;'><h2>"
-        "<a href='https://projetpfa-jzgjbivvfqdgn7p9jawpnu.streamlit.app/login/' style='text-decoration: none; color: #FF4B4B;'>"
+        "<a href='https://gestion-candidatures.onrender.com/login/' style='text-decoration: none; color: #FF4B4B;'>"
         "Se connecter 🔓</a></h2></div>",
         unsafe_allow_html=True
     )
