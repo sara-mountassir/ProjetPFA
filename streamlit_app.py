@@ -1,85 +1,54 @@
 import streamlit as st
-import pandas as pd
 
 # Set page config
 st.set_page_config(
-    page_title="Mon Projet PFA",
+    page_title="Gestion des Candidatures",
     page_icon="📚",
-    layout="wide"
+    layout="centered"
 )
 
-# Sidebar navigation
-with st.sidebar:
-    st.image("https://img.icons8.com/color/48/000000/student-center.png", width=100)
-    st.title("Navigation")
-    page = st.radio(
-        "Choisissez une page:",
-        ["Accueil", "À propos du projet", "Données", "Analyse", "Contact"]
-    )
-
-# Main content
-if page == "Accueil":
-    st.title("📚 Gestion des Candidatures")
-    st.write("Bienvenue dans l'application de gestion des candidatures.")
+# Center the content
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
+    # Logo and title
+    st.image("https://img.icons8.com/color/96/000000/student-center.png", width=96)
+    st.title("Gestion des Candidatures")
     
-    # Quick stats in columns
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Total Candidatures", "150")
-    with col2:
-        st.metric("En attente", "45")
-    with col3:
-        st.metric("Traités", "105", "+12")
-
-    # Add a sample chart
-    st.subheader("Statistiques récentes")
-    chart_data = pd.DataFrame({
-        'Mois': ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
-        'Candidatures': [30, 45, 60, 75, 90]
-    })
-    st.line_chart(chart_data.set_index('Mois'))
-
-elif page == "À propos du projet":
-    st.title("🎯 À propos du projet")
-    st.write("""
-    Ce projet vise à développer une application web pour la gestion efficace des candidatures.
+    # Welcome message
+    st.markdown("""
+    <div style='text-align: center; margin: 20px 0;'>
+        <p style='font-size: 1.2em; color: #666;'>Bienvenue dans votre espace de gestion des candidatures</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    ### Objectifs principaux:
-    - Simplifier le processus de candidature
-    - Automatiser le tri et la classification
-    - Fournir des analyses statistiques
-    - Améliorer le suivi des candidatures
-    """)
-
-elif page == "Données":
-    st.title("📊 Visualisation des données")
-    st.write("Explorez les données des candidatures")
+    # Login button with styling
+    st.markdown("""
+    <div style='text-align: center; padding: 20px;'>
+        <a href='https://projetpfa-jzgjbivvfqdgn7p9jawpnu.streamlit.app/login/' target='_self' style='text-decoration: none;'>
+            <button style='
+                background-color: #FF4B4B;
+                color: white;
+                padding: 15px 32px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s ease;
+                width: 100%;
+                margin: 10px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);'
+                onmouseover='this.style.backgroundColor="#FF3333"'
+                onmouseout='this.style.backgroundColor="#FF4B4B"'>
+                Se connecter 🔓
+            </button>
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
     
-    # Sample data table
-    data = pd.DataFrame({
-        'ID': range(1, 6),
-        'Nom': ['Dupont', 'Martin', 'Bernard', 'Petit', 'Robert'],
-        'Status': ['En attente', 'Accepté', 'En attente', 'Refusé', 'Accepté'],
-        'Date': ['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05']
-    })
-    st.dataframe(data)
+    # Footer
+    st.markdown("""
+    <div style='text-align: center; margin-top: 30px;'>
+        <p style='color: #888; font-size: 0.8em;'>© 2025 Gestion des Candidatures. Tous droits réservés.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-elif page == "Analyse":
-    st.title("📈 Analyse des candidatures")
-    
-    # Add filters
-    status = st.selectbox("Filtrer par status", ["Tous", "En attente", "Accepté", "Refusé"])
-    date_range = st.date_input("Sélectionner une période")
-    
-    st.write("Résultats de l'analyse seront affichés ici...")
-
-else:  # Contact page
-    st.title("📧 Contact")
-    with st.form("contact_form"):
-        name = st.text_input("Nom")
-        email = st.text_input("Email")
-        message = st.text_area("Message")
-        submit = st.form_submit_button("Envoyer")
-        
-        if submit:
-            st.success("Message envoyé! Nous vous contacterons bientôt.")
