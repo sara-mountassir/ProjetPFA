@@ -135,11 +135,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/sarakojima/ProjetPFA/staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic output
+
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Assuming you have a local folder named 'static'
+    BASE_DIR / 'static',  # your existing static folder inside the project
 ]
+
+
 
 
 
@@ -194,6 +201,7 @@ import os
 # Répertoire de stockage des fichiers média
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Taille maximale des fichiers téléchargés (5 Mo)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 Mo
