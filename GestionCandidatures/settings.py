@@ -28,7 +28,12 @@ SECRET_KEY = '6&8v!3mz$4wqy9l7b_5k#p9sx@r2j+hg%f1d*o-t(cu0n)e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'sarakojima.pythonanywhere.com',
+    'www.sarakojima.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition
