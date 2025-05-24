@@ -142,9 +142,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = '/home/sarakojima/ProjetPFA/staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ['/home/sarakojima/ProjetPFA/static']
+STATIC_ROOT = '/home/sarakojima/ProjetPFA/staticfiles'
+STATICFILES_DIRS = [
+    '/home/sarakojima/ProjetPFA/static',
+    '/home/sarakojima/.virtualenvs/ProjetPFA-virtualenv/lib/python3.10/site-packages/django/contrib/admin/static',
+    '/home/sarakojima/.virtualenvs/ProjetPFA-virtualenv/lib/python3.10/site-packages/django_tailwind/static',
+]
 
 
 # Default primary key field type
