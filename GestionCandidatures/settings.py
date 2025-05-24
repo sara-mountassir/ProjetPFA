@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sarakojima$default',  # Must match exactly
-        'USER': 'sarakojima',          # Your PA username
+        'NAME': 'sarakojima$gestion',  # Must match EXACTLY
+        'USER': 'sarakojima',          # Your PythonAnywhere username
         'PASSWORD': 'soso1234',        # Your MySQL password
-        'HOST': 'sarakojima.mysql.pythonanywhere-services.com',
+        'HOST': 'sarakojima.mysql.pythonanywhere-services.com',  # THIS IS CRUCIAL
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
