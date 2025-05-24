@@ -138,10 +138,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/sarakojima/ProjetPFA/staticfiles'
 STATICFILES_DIRS = [
-    '/home/sarakojima/ProjetPFA/static',
-    '/home/sarakojima/.virtualenvs/ProjetPFA-virtualenv/lib/python3.10/site-packages/django/contrib/admin/static',
-    '/home/sarakojima/.virtualenvs/ProjetPFA-virtualenv/lib/python3.10/site-packages/django_tailwind/static',
+    BASE_DIR / 'static',  # Assuming you have a local folder named 'static'
 ]
+
 
 
 # Default primary key field type
