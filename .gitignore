@@ -1,9 +1,29 @@
-/venv/
+# Python/Django
 *.pyc
 __pycache__/
 db.sqlite3
-.env
-*.swp
 debug.log
-/media/
+
+# Environment
+.env
+.env*
+*.env
+
+# Virtual environment
+/venv/
+
+# Media uploads (user-generated content)
+/media/*
+!/media/.gitkeep
+
+# Production collected static files
 /staticfiles/
+
+# System
+.DS_Store
+*.swp
+*.log
+
+# IDE specific
+.idea/
+.vscode/
