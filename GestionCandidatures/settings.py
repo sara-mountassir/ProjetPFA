@@ -1,6 +1,4 @@
 
-
-
 """
 Django settings for GestionCandidatures project.
 
@@ -23,10 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6&8v!3mz$4wqy9l7b_5k#p9sx@r2j+hg%f1d*o-t(cu0n)e'
+SECRET_KEY = 'django-insecure-k46w#5azt!-iorj04puub^73@fd#q-6c$btxbb&suo6)9b8lun'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
+ALLOWED_HOSTS = ['sarakojima.pythonanywhere.com']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'candidatures',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -66,7 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+
 
             ],
         },
@@ -78,25 +78,16 @@ WSGI_APPLICATION = 'GestionCandidatures.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-# Database Configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sarakojima$default',
+        'USER': 'sarakojima',
+        'PASSWORD': 'sara2025',
+        'HOST': 'sarakojima.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
     }
 }
-
-
-# Security Settings
-DEBUG = False
-ALLOWED_HOSTS = ['sarakojima.pythonanywhere.com', 'localhost']
-
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,7 +95,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+   },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
@@ -129,18 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-
-
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic output
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
-
-
-
+import os
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
@@ -194,7 +178,6 @@ import os
 # Répertoire de stockage des fichiers média
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Taille maximale des fichiers téléchargés (5 Mo)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 Mo
